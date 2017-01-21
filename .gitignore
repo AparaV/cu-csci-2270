@@ -1,2 +1,5 @@
 #Compilation data
 *.o
+
+#Assignments
+Assignment1.cpp
