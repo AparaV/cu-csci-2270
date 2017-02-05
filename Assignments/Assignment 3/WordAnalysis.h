@@ -1,3 +1,10 @@
+/** CSCI 2270-110  Data Structures
+** Instructor: Rhonda Hoenigman
+** TA: Yang Li
+** Assignment 03
+** Author: Aparajithan Venkateswaran
+*/
+
 #include <string>
 
 using namespace std;

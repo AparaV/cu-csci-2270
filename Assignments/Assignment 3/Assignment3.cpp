@@ -1,5 +1,13 @@
+/** CSCI 2270-110  Data Structures
+** Instructor: Rhonda Hoenigman
+** TA: Yang Li
+** Assignment 03
+** Author: Aparajithan Venkateswaran
+*/
+
 #include <iostream>
 #include "WordAnalysis.h"
+
 using namespace std;
 
 // main expects 1 argument, filename
