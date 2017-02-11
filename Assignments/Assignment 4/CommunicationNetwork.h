@@ -1,3 +1,10 @@
+/** CSCI 2270-110  Data Structures
+** Instructor: Rhonda Hoenigman
+** TA: Yang Li
+** Assignment 04
+** Author: Aparajithan Venkateswaran
+*/
+
 #ifndef COMMUNICATIONNETWORK_H
 #define COMMUNICATIONNETWORK_H
 #include <iostream>
