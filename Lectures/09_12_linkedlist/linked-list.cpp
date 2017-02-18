@@ -110,13 +110,31 @@
 
 /*
 	Doubly linked list
+
+	Deleting node
+
+	void deleteDouble(value)
+		dNode* node = search(value)			//find node in list to delete
+		if (node == head)
+			head = head->next
+			head->previous = NULL
+			delete node
+		else if (node == tail)
+			tail = tail->previous
+			tail->next = NULL
+			delete node
+		else
+			node->previous->next = node->next
+			node->next->previous = node->previous
+			delete node
+
 */
 
 #include <iostream>
 
 using namespace std;
 
-//Single linked list
+//Singly linked list
 struct node {
 	int key;
 	node* next;
@@ -127,20 +145,43 @@ struct node {
 	}
 };
 
-//Double linked list
+//Doubly linked list
 struct dNode {
 	int key;
 	dNode* next;
 	dNode* previous;
 	//Constructor
-	dnode(int k, node* n = NULL, node* p = NULL) {
+	dNode() {};
+	dNode(int k, dNode* p = NULL, dNode* n = NULL) {
 		key = k;
 		next = n;
 		previous = p;
 	}
+	//Destructor
+	~dNode() {
+		cout << "Deleting " << key << endl;
+	}
+};
+
+class myClass {
+private:
+	dNode* head;
+	dNode n;
+public:
+	myClass() {
+		cout << "myClass constructor called" << endl;
+		head = new dNode(1, NULL, NULL);
+	}
+	~myClass() {
+		cout << "myClass destructor called" << endl;
+		delete head;
+	}
 };
 
 int main() {
+
+	/*Singly Linked List*/
+	cout << "\n==========\n" << "Singly Linked List\n" << "==========\n" << endl;
 
 	//Creating the list
 	node* x = new node(5, NULL);
@@ -157,14 +198,46 @@ int main() {
 	}
 
 	//Deallocate
-	delete x, x2, x3;
+	delete x;
+	delete x2;
+	delete x3;
+	delete current;
 
-	//Doubly linked list
+	/*Doubly Linked List*/
+	cout << "\n==========\n" << "Doubly Linked List\n" << "==========\n" << endl;
+
+	//Creating the list
+	dNode* head;
 	dNode* y = new dNode(4, NULL, NULL);
-	dNode* y2 = new dNode(5, NULL, y);
-	dNode* y3 = new dNode(6, NULL, y2);
+	dNode* y2 = new dNode(5, y, NULL);
+	dNode* y3 = new dNode(6, y2, NULL);
+	head = y;
 	y->next = y2;
 	y2->next = y3;
+
+	dNode* curr = NULL;
+	int i = 10;
+	while (i < 19) {
+		curr = new dNode(i, NULL, NULL);
+		head->next = curr;
+		head = curr;
+		i++;
+	}
+
+	//Deallocate
+	delete head;
+	delete y;
+	delete y2;
+	delete y3;
+	delete curr;
+
+	/*Classes and Ctors and Dtors*/
+	cout << "\n=========\nClasses\n=========\n" << endl;
+
+	myClass test;						//implicitly calls destructor
+
+	myClass* test2 = new myClass();		//need to call destructor explicityl by calling delete
+	delete test2;						//calls destructor
 
 	return 0;
 }
