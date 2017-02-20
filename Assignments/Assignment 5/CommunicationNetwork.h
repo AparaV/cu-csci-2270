@@ -1,3 +1,10 @@
+/** CSCI 2270-110  Data Structures
+** Instructor: Rhonda Hoenigman
+** TA: Yang Li
+** Assignment 05
+** Author: Aparajithan Venkateswaran
+*/
+
 #ifndef COMMUNICATIONNETWORK_H
 #define COMMUNICATIONNETWORK_H
 #include <iostream>
@@ -26,7 +33,8 @@ class CommunicationNetwork
         ~CommunicationNetwork();
         void addCity(std::string, std::string);
         void buildNetwork();
-        void transmitMsg(char *); //this is like a string
+        void transmitMsg(std::string);
+		void transmitFile(char*);		//this is like a string
         void printNetwork();
         void deleteCity(std::string);
         void deleteNetwork();
