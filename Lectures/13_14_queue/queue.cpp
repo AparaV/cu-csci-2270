@@ -68,5 +68,31 @@
 		else
 			cout << "Queue Full" << endl
 
+*/
+
+/*
+	Linked List Implementation
+
+	Enqueue - Add a node
+	Dequeue - Remove a node
+
+	enqueue(value)
+		node* n = new node(value, NULL)
+		if (tail != NULL)				//queue not empty
+			tail->next = n
+			tail = n
+		else							//first element in queue
+			tail = n
+			head = tail
+
+	dequeue()
+		node* n = NULL
+		if (head != NULL)
+			n = head
+			head = head->next
+		else
+			cout << "Queue Empty" << endl
+			tail = head
+		return n
 
 */
