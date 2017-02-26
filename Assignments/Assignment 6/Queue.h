@@ -1,3 +1,10 @@
+/** CSCI 2270-110  Data Structures
+** Instructor: Rhonda Hoenigman
+** TA: Yang Li
+** Assignment 06
+** Author: Aparajithan Venkateswaran
+*/
+
 #ifndef QUEUE_H
 #define QUEUE_H
 #include <iostream>
