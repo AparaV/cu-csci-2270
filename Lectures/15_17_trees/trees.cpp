@@ -112,4 +112,121 @@
 				n->parent = parent;
 			}
 		}
+
+	2. Search BST
+	-------------
+
+		a. Iterative:
+			
+			node* search(searchKey) {
+				node* n = root;
+				while (n != NULL) {						//go through the tree
+					if (n->key > searchKey) {
+						n = n->left;
+					}
+					else if (n->key < searchKey) {
+						n = n->right;
+					}
+					else {								//value is found
+						return n;
+					}
+				}
+				return NULL;
+			}
+
+		b. Recursive:
+			Call search on left or right child until node is found or we get to NULL
+
+			node* search(n, searchKey) {
+				if (n == NULL || n->key == searchKey) {
+					return n;
+				}
+				else if (n->key > searchKey) {
+					return search(n->left, searchKey);
+				}
+				else {
+					return search(n->right, searchKey);
+				}
+			}
+
+	3.Deleting node
+	---------------
+		Remove node
+		Find replacement (child needs new parent and parent needs new child)
+		Update parent and child pointers
+
+		Cases:
+		1. Node has no children
+		2. Node has one child
+		3. Node has two children
+
+		delete(value) {
+			node* n = search(value);								//return pointer to node to delete
+
+			if (n != root) {
+
+				if (n->left == NULL && n->right == NULL) {			//no children
+					if (n == n->parent->left) {
+						n->parent->left = NULL;
+					}
+					else if (n == n->parent->right) {
+						n->parent->right = NULL;
+					}
+					delete n;
+				}
+
+				else if (n->left != NULL && n->right != NULL) {		//two children
+					
+				}
+
+				else {												//one child
+					if (n == n->parent->left) {
+						if (n->left != NULL) {
+							node* x = n->left;
+							n->parent->left = x;
+							x->parent = n->parent;
+							delete n;
+						}
+						else if (n->right != NULL) {
+							node* x = n->right;
+							n->parent->left = x;
+							x->parent = n->parent;
+							delete n;
+						}
+					}
+					else if (n == n->parent->right) {
+						if (n->left != NULL) {
+							node* x = n->left;
+							n->parent->right = x;
+							x->parent = n->parent;
+							delete n;
+						}
+						else if (n->right != NULL) {
+							node* x = n->right;
+							n->parent->right = x;
+							x->parent = n->parent;
+							delete n;
+						}
+					}
+				}
+			}
+
+			//need to set a root with parent = NULL
+			else {	
+
+				if (n->left == NULL && n->right == NULL) {			//no children
+
+				}
+
+				else if (n->left != NULL && n->right != NULL) {		//two children
+
+				}
+
+				else {												//one child
+
+				}
+			}
+		}
+
+	
 */
