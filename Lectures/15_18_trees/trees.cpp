@@ -190,14 +190,12 @@
 							min->parent = n->parent;
 							min->left = n->left;
 							min->left->parent = min;
-							min->right = n->right;
 						}
 						if (n == n->parent->right) {
 							n->parent->right = min;
 							min->parent = n->parent;
 							min->left = n->left;
 							min->left->parent = min;
-							min->right = n->right;
 						}
 					}
 
