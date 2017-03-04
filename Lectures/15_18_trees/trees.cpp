@@ -164,7 +164,8 @@
 			node* n = search(value);								//return pointer to node to delete
 
 			if (n != root) {
-
+				
+				//no children
 				if (n->left == NULL && n->right == NULL) {			//no children
 					if (n == n->parent->left) {
 						n->parent->left = NULL;
@@ -174,11 +175,52 @@
 					}
 					delete n;
 				}
+				/end no children
 
+				//two children
 				else if (n->left != NULL && n->right != NULL) {		//two children
-					
-				}
+					//Replacement is minimum value in the right subtree
+					//Find minimum value in right subtree
+					node* min = treeMinimum(n->right);
 
+					//if min is right child
+					if (min == n->right) {
+						if (n == n->parent->left) {					//other case to consider is right child
+							n->parent->left = min;
+							min->parent = n->parent;
+							min->left = n->left;
+							min->left->parent = min;
+							min->right = n->right;
+						}
+						if (n == n->parent->right) {
+							n->parent->right = min;
+							min->parent = n->parent;
+							min->left = n->left;
+							min->left->parent = min;
+							min->right = n->right;
+						}
+					}
+
+					//if min is not right child ~ further down the right subtree
+					else {
+						//put the right child of min to min's parent
+						min->parent->left = min->right;
+						min->right->parent = min->parent;
+						//put min to n's parent
+						min->parent = n->parent;
+						min->parent->left = min;
+						//put min in place of n
+						min->left = n->left;
+						min->right = n->right;
+						n->right->parent = min;
+						n->left->parent = min;
+					}
+
+					delete n;
+				}
+				//end two children
+
+				//one child
 				else {												//one child
 					if (n == n->parent->left) {
 						if (n->left != NULL) {
@@ -210,6 +252,7 @@
 					}
 				}
 			}
+			//end one child
 
 			//need to set a root with parent = NULL
 			else {	
@@ -226,6 +269,15 @@
 
 				}
 			}
+		}
+
+		//find minimum value of tree where q is the root
+		node* treeMinimum(node* q){
+			node* x = q;
+			while (x->left != NULL) {
+				x = x->left;
+			}
+			return x;
 		}
 
 	
