@@ -1,3 +1,10 @@
+/** CSCI 2270-110  Data Structures
+** Instructor: Rhonda Hoenigman
+** TA: Yang Li
+** Assignment 08
+** Author: Aparajithan Venkateswaran
+*/
+
 #ifndef MOVIETREE_H
 #define MOVIETREE_H
 
