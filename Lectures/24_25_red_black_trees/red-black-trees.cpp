@@ -74,4 +74,25 @@
 			Case 2: new node is right child and Uncle is black
 			Case 3: new node is left child and Uncle is black
 
+		redBlackInsert(value) {
+			node* x = insert(value);
+			//see moodle notes/code
+		}
+
+	Deleting a node
+	---------------
+		Violation:
+			Change number of black nodes on a path.
+			Need to balance
+
+		Algorithm: Same as BST
+			0, 1, 2 child case
+			x is replacement node
+			if x is black, need to re-balance
+
+		RBBalance(x) {
+			//see moodle notes/code
+
+		}
+
 */
