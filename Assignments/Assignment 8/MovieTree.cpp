@@ -143,7 +143,7 @@ void MovieTree::deleteMovieNode(string title) {
 				movie->rightChild->parent = NULL;
 				root = movie->rightChild;
 			}
-			else if (movie->leftChild == NULL) {
+			else if (movie->leftChild != NULL) {
 				movie->leftChild->parent = NULL;
 				root = movie->leftChild;
 			}
