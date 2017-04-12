@@ -53,6 +53,9 @@
 			void printGraph();
 			bool search(value);
 	};
+	
+	1. Insert Vertex
+	----------------
 
 	// pre condition - value is valid
 	// post condition - vertex is added to vertices if it doesn't already exist
@@ -72,5 +75,40 @@
 		}
 	}
 		
+	Traversing Graphs
+	=================
+
+	1. Breadth first search (BFS)
+		
+		Visit all adjacent vertices first before going deeper
+		Look at 1 edge away before looking at multiple edges away
+
+		View graph as a tree - BFS
+			Root of tree = starting vertex of graph
+
+		Algorithm:
+		----------
+			find starting vertex
+			mark vertex as visited (add a new property to vertex struct)
+			add vertex to queue
+			while queue ! empty
+				dequeue
+				for each of vertex adjacent
+					if vertex ! visited
+						mark as visited
+						// do stuff with it like printing, etc.
+						add to queue
+
+		Modify the vertex struct to include a distance and a parent
+
+
+
+	2. Depth first search (DFS)
+
+		Visit all vertices along a path before trying other paths
+
+		View graph as a tree - BFS
+			Root of tree = starting vertex of graph
+
 
 */
