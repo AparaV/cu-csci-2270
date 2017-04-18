@@ -101,14 +101,40 @@
 
 		Modify the vertex struct to include a distance and a parent
 
+		struct adjVertex {
+			vertex* v;
+			int weight;
+		};
+
+		struct vertex {
+			string key;
+			vector<adjVertex> adjacent;
+			bool visited;
+			int distance; // distance from start to current
+			vertex* parent;
+		};
+
+		// see moodle for detailed implementation
 
 
 	2. Depth first search (DFS)
 
 		Visit all vertices along a path before trying other paths
+		Follow a path to the end before backing up and following a different path
 
-		View graph as a tree - BFS
+		View graph as a tree - DFS
 			Root of tree = starting vertex of graph
+		Can be done through recursion and iteration
+
+		Recursive algorithm
+		-------------------
+		DFS (vertex)
+			vertex->visited = true
+			for (int x = 0; x < vertex.adjacent.size(); ++x)
+				if (!vertex.adjacent[x].visited)
+					print vertex.adjacent[x].key
+					//do stuff
+					DFS(vertex.adjacent[x].v)
 
 
 */
