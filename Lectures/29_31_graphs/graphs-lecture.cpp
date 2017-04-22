@@ -133,8 +133,52 @@
 			for (int x = 0; x < vertex.adjacent.size(); ++x)
 				if (!vertex.adjacent[x].visited)
 					print vertex.adjacent[x].key
-					//do stuff
+					// do stuff
 					DFS(vertex.adjacent[x].v)
+
+		Iterative algorithm
+		-------------------
+			uses stack data structure instead of call stack => different order
+
+			DFS (value)
+				vertex = search(value)
+				stack.push(vertex)
+				while (!stack.empty)
+					v = stack.pop()
+					print v.key
+					// do stuff
+					for each a in v.adjacent
+						if !a.visited
+							a.visited = true
+							stack.push(a)
+
+
+	Shortest Path
+	=============
+
+	Dijkstra's Algorithm
+	--------------------
+		Edge weight > 0
+
+	Dijkstra (start, end)
+		find start
+		find end
+		solved = {start} // set of solved vertices
+		while (!end.solved)
+			for each v in solved
+				for each a in v.adjacent
+					if (!a.solved)
+						calculate distance from start to a // distance to v + edge weight v-a
+						if dist < minDist
+							store a as minVertex
+							minDist = dist
+			add minVertex to solved
+		return end // store dist to endVertex and its parent vertex
+
+		Algorithm doesn't use stack or queue.
+		It instead uses a set/array/list
+		Note that distance is sum of edge weights and not edge counts
+		When vertex added to solved, also store the parent to that vertex (the node from which we got that minDistance)
 
 
 */
