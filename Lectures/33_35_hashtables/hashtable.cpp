@@ -148,4 +148,57 @@
                     if (temp != NULL)
                         temp->next->previous = newM
                         temp->previous->next = newM
+
+
+    Open Addressing
+    --------------
+    All records stored directly in the hashtable.
+    In case of collision, Linear Probing:
+        Traverse table linearly until open location is identified.
+        Store record in that location
+
+    Algorithm:
+    ----------
+        insert(key, tablesize, hashElement)
+            index = hash(key, tablesize)
+            if (table[index] == NULL)
+                table[index] = hashElement
+            else
+                if (table[index].key == key)
+                    print "Already in table"
+                else // search for open location
+                    i = index
+                    index++
+                    while(table[index] != NULL && i != index)
+                        if (index + 1 == tableSize)
+                            index = 0
+                        else
+                            index++
+                    table[index] = hashElement
+                    // fails when table is full - will overwrite the exsiting the element
+                    // fails to see if the element to insert already exists in the table
+
+    Deleting from table
+    -------------------
+        From deleted record
+            traverse to next record
+            if same hash value, move to deleted spot
+        repeat until empty spot is encountered
+            1. shift everything
+            2. traverse to NULL. store last value encountered with same hash value.
+                move to deleted spot
+
+    Searching
+    ---------
+        Get the hash value for the key
+        x = hash(key)
+        if (table[x].key == key)
+            return true
+        else if (table[x] == NULL)
+            return false
+        else
+            // loop forward checking each index
+            // until NULL is reached or key is found
+            // wrap around if necessary
+
 */
