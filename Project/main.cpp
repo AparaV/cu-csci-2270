@@ -22,7 +22,7 @@ void menu(); // display menu
 int main(int argc, char** argv) {
 
 	int hashSize = 5147;
-	if (argc == 2 && stoi(argv[1]) > hashSize) {
+	if (argc == 2) {
 		hashSize = stoi(argv[1]);
 	}
 
@@ -33,8 +33,11 @@ int main(int argc, char** argv) {
 	cout << "Hash table size: " << hashSize << endl;
 	cout << "Collisions using open addressing: " << hashOA.collisions << endl;
 	cout << "Search operations using open addressing: " << hashOA.operations << endl;
+	//cout << "Number of unique elements using open addressing: " << hashOA.uniqueValues << endl;
 	cout << "Collisions using chaining: " << hashCH.collisions << endl;
 	cout << "Search operations using chaining: " << hashCH.operations << endl;
+	//cout << "Number of unique elements using chaining: " << hashCH.uniqueValues << endl;
+	cout << "======" << endl << endl;
 
 	bool running = true;
 	while (running) {
@@ -87,7 +90,7 @@ void initialize(string fileName, HashTable* hashCH, HashTable* hashOA) {
 			components << line;
 			int count = 1, year, salary, birth, weight, height;
 			bool batsR, throwsR;
-			string team, league, firstN, lastN, country;
+			string team, league, firstN, lastN, country, id;
 			while (getline(components, line, ',')) {
 				switch (count) {
 				case 1:
@@ -100,6 +103,10 @@ void initialize(string fileName, HashTable* hashCH, HashTable* hashOA) {
 					break;
 				case 3:
 					league = line;
+					count++;
+					break;
+				case 4:
+					id = line;
 					count++;
 					break;
 				case 5:
@@ -153,7 +160,7 @@ void initialize(string fileName, HashTable* hashCH, HashTable* hashOA) {
 					break;
 				}
 			}
-			Player* newP = new Player(firstN, lastN, country, birth, weight, height, batsR, throwsR);
+			Player* newP = new Player(firstN, lastN, country, id, birth, weight, height, batsR, throwsR);
 			Team* newT = new Team(year, team, league, salary);
 			newP->teams.push_back(*newT);
 			hashCH->insert(newP);

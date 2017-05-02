@@ -18,6 +18,7 @@ HashTable::HashTable(int size, bool chains) {
 	chaining = chains;
 	collisions = 0;
 	operations = 0;
+	uniqueValues = 0;
 	// allocate memory and initialize
 	players = new Player*[tableSize];
 	for (int i = 0; i < tableSize; ++i) {
@@ -60,9 +61,10 @@ void HashTable::insertOA(int index, Player* player) {
 	//check if index is empty
 	if (players[index] == NULL) {
 		players[index] = player;
+		uniqueValues++;
 	}
 	//check if spot is taken by same player
-	else if (players[index]->firstName == player->firstName && players[index]->lastName == player->lastName && players[index]->yearBorn == player->yearBorn) {
+	else if (players[index]->id == player->id) {
 		players[index]->teams.push_back(player->teams[0]);
 	}
 	//loop through to find next empty spot
@@ -75,7 +77,7 @@ void HashTable::insertOA(int index, Player* player) {
 		while (players[index] != NULL && index != i) {
 			operations++;
 			//if already present
-			if (players[index]->firstName == player->firstName && players[index]->lastName == player->lastName && players[index]->yearBorn == player->yearBorn) {
+			if (players[index]->id == player->id) {
 				players[index]->teams.push_back(player->teams[0]);
 				found = true;
 			}
@@ -86,6 +88,7 @@ void HashTable::insertOA(int index, Player* player) {
 		}
 		if (!found) {
 			players[index] = player;
+			uniqueValues++;
 		}
 	}
 
@@ -96,41 +99,37 @@ void HashTable::insertCH(int index, Player* player) {
 	//if spot is empty
 	if (players[index] == NULL) {
 		players[index] = player;
+		uniqueValues++;
 	}
 	else {
 		Player* temp = players[index];
 		// if the first item is same player, just add the team
-		if (player->firstName == temp->firstName && player->lastName == temp->lastName && player->yearBorn == temp->yearBorn) {
+		if (player->id == temp->id) {
 			temp->teams.push_back(player->teams[0]);
 		}
 		else {
 			collisions++;
-			// loop and find right spot
-			while (temp->next != NULL && player->key > temp->key) {
+			bool found = false;
+			// loop and find if player already exists
+			while (temp->next != NULL) {
+				// player already exists
+				if (player->id == temp->id) {
+					temp->teams.push_back(player->teams[0]);
+					found = true;
+					break;
+				}
 				temp = temp->next;
 				operations++;
 			}
-			// if player already exists at the same spot
-			if (player->firstName == temp->firstName && player->lastName == temp->lastName && player->yearBorn == temp->yearBorn) {
+			// player already exists
+			if (player->id == temp->id) {
 				temp->teams.push_back(player->teams[0]);
+				found = true;
 			}
-			// if player is to be inserted before temp
-			else if (player->key <= temp->key) {
-				player->next = temp;
-				player->prev = temp->prev;
-				if (temp->prev != NULL) { //if a previous element exists
-					temp->prev->next = player;
-				}
-				else { //otherwise set the players[index] to new player
-					players[index] = player;
-				}
-				temp->prev = player;
-			}
-			// otherwise
+			// player doesn't exist - add to end of linked list
 			else {
-				player->next = temp->next;
 				temp->next = player;
-				player->prev = temp;
+				uniqueValues++;
 			}
 		}
 	}
@@ -187,18 +186,14 @@ int HashTable::searchCH(string key, string team) {
 	else {
 		int count = 1;
 		Player* temp = players[index];
-		while (temp != NULL && temp->key < key) { //we're sorting in alphabetical order
-			temp = temp->next;
+		bool found = false;
+		while (temp != NULL) {
+			if (temp->key == key && playedFor(temp, team)) {
+				cout << "Found" << endl;
+				found = true;
+				break;
+			}
 			count++;
-		}
-		if (temp == NULL || temp->key != key) {
-			cout << "Player not found" << endl;
-		}
-		else if (temp->key == key && playedFor(temp, team)){
-			cout << "Found" << endl;
-		}
-		else {
-			cout << "Player not found" << endl;
 		}
 		return count;
 	}

@@ -25,6 +25,7 @@ public:
 	int search(std::string key, std::string team); // returns number of linear traversals
 	int collisions;
 	int operations;
+	int uniqueValues;
 private:
 	void insertOA(int index, Player* player); // open addressing
 	void insertCH(int index, Player* player); // chaining

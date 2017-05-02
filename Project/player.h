@@ -34,6 +34,7 @@ struct Player {
 	std::string lastName;
 	std::string country;
 	std::string key;
+	std::string id;
 	int yearBorn;
 	int weight;
 	int height;
@@ -41,20 +42,19 @@ struct Player {
 	bool throwsRight;
 	std::vector<Team> teams;
 	Player* next;
-	Player* prev;
 
-	Player(std::string fn, std::string ln, std::string c, int birth, int wt, int ht, bool bR, bool tR) {
+	Player(std::string fn, std::string ln, std::string c, std::string pid, int birth, int wt, int ht, bool bR, bool tR) {
 		firstName = fn;
 		lastName = ln;
 		key = firstName + lastName;
 		country = c;
+		id = pid;
 		yearBorn = birth;
 		weight = wt;
 		height = ht;
 		batsRight = bR;
 		throwsRight = tR;
 		next = NULL;
-		prev = NULL;
 	}
 };
 
