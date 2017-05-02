@@ -37,7 +37,6 @@ int main(int argc, char** argv) {
 	cout << "Collisions using chaining: " << hashCH.collisions << endl;
 	cout << "Search operations using chaining: " << hashCH.operations << endl;
 	//cout << "Number of unique elements using chaining: " << hashCH.uniqueValues << endl;
-	cout << "======" << endl << endl;
 
 	bool running = true;
 	while (running) {
@@ -62,6 +61,7 @@ int main(int argc, char** argv) {
 			cout << "Search operations using chaining: " << searchOperationsCH << endl;
 		}
 		else if (input == '2') {
+			cout << "Goodbye!" << endl;
 			running = false;
 		}
 	}

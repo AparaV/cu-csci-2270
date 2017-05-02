@@ -69,7 +69,6 @@ void HashTable::insertOA(int index, Player* player) {
 	}
 	//loop through to find next empty spot
 	else {
-		collisions++;
 		int i = index;
 		bool found = false;
 		index++;
@@ -90,6 +89,7 @@ void HashTable::insertOA(int index, Player* player) {
 		if (!found) {
 			players[index] = player;
 			uniqueValues++;
+			collisions++;
 		}
 	}
 
