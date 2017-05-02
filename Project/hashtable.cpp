@@ -80,6 +80,7 @@ void HashTable::insertOA(int index, Player* player) {
 			if (players[index]->id == player->id) {
 				players[index]->teams.push_back(player->teams[0]);
 				found = true;
+				break;
 			}
 			index++;
 			if (index == tableSize) {
@@ -108,7 +109,6 @@ void HashTable::insertCH(int index, Player* player) {
 			temp->teams.push_back(player->teams[0]);
 		}
 		else {
-			collisions++;
 			bool found = false;
 			// loop and find if player already exists
 			while (temp->next != NULL) {
@@ -130,6 +130,7 @@ void HashTable::insertCH(int index, Player* player) {
 			else {
 				temp->next = player;
 				uniqueValues++;
+				collisions++;
 			}
 		}
 	}

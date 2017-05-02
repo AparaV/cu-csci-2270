@@ -29,8 +29,8 @@ public:
 private:
 	void insertOA(int index, Player* player); // open addressing
 	void insertCH(int index, Player* player); // chaining
-	int searchOA(std::string key, std::string team);
-	int searchCH(std::string key, std::string team);
+	int searchOA(std::string key, std::string team); // open addressing
+	int searchCH(std::string key, std::string team); // chaining
 	int hash(std::string key); // hash sum function
 	bool playedFor(Player* player, std::string team); // check whether the player played for this team
 	Player** players;
