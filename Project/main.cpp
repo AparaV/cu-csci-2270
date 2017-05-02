@@ -1,3 +1,13 @@
+/** CSCI 2270 Project: Hash Table Performance Evalutation
+ ** Instructor: Rhonda Hoenigman
+ ** TA: Yang Li
+ ** Author: Aparajithan Venkateswaran
+ **
+ ** main.cpp
+ ** Program starts from here
+ ** Refer "hashtable.h" and "player.h" for declarations
+ */
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -6,13 +16,13 @@
 
 using namespace std;
 
-void initialize(string fileName, HashTable* hashCH, HashTable* hashOA);
-void menu();
+void initialize(string fileName, HashTable* hashCH, HashTable* hashOA); // initialize hashtables
+void menu(); // display menu
 
 int main(int argc, char** argv) {
 
 	int hashSize = 5147;
-	if (argc == 2) {
+	if (argc == 2 && stoi(argv[1]) > hashSize) {
 		hashSize = stoi(argv[1]);
 	}
 
@@ -32,16 +42,19 @@ int main(int argc, char** argv) {
 		char input;
 		cin >> input;
 		if (input == '1') {
-			string firstN, lastN, key;
+			string firstN, lastN, key, team;
 			cout << "Enter first name:" << endl;
 			getchar();
 			cin >> firstN;
 			cout << "Enter last name:" << endl;
 			getchar();
 			cin >> lastN;
+			cout << "Enter a team they played for:" << endl;
+			getchar();
+			cin >> team;
 			key = firstN + lastN;
-			int searchOperationsOA = hashOA.search(key);
-			int searchOperationsCH = hashCH.search(key);
+			int searchOperationsOA = hashOA.search(key, team);
+			int searchOperationsCH = hashCH.search(key, team);
 			cout << "Search operations using open addressing: " << searchOperationsOA << endl;
 			cout << "Search operations using chaining: " << searchOperationsCH << endl;
 		}
@@ -53,6 +66,7 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
+// initialize hash tables
 void initialize(string fileName, HashTable* hashCH, HashTable* hashOA) {
 	ifstream file;
 	file.open(fileName);
@@ -151,6 +165,7 @@ void initialize(string fileName, HashTable* hashCH, HashTable* hashOA) {
 	file.close();
 }
 
+// display menu
 void menu() {
 	cout << "1. Query hash table" << endl;
 	cout << "2. Quit program" << endl;

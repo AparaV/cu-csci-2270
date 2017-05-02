@@ -1,3 +1,12 @@
+/** CSCI 2270 Project: Hash Table Performance Evalutation
+ ** Instructor: Rhonda Hoenigman
+ ** TA: Yang Li
+ ** Author: Aparajithan Venkateswaran
+ **
+ ** player.h
+ ** Definition of Player and Team structs
+ */
+
 #ifndef PLAYER_H
 #define PLAYER_H
 

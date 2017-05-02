@@ -1,3 +1,12 @@
+/** CSCI 2270 Project: Hash Table Performance Evalutation
+ ** Instructor: Rhonda Hoenigman
+ ** TA: Yang Li
+ ** Author: Aparajithan Venkateswaran
+ ** 
+ ** hashtable.cpp
+ ** Contains implementation of class declared in "hashtable.h"
+ */
+
 #include <iostream>
 #include "hashtable.h"
 
@@ -35,14 +44,14 @@ void HashTable::insert(Player* player) {
 }
 
 // search
-int HashTable::search(string key) {
+int HashTable::search(string key, string team) {
 	// chaining
 	if (chaining) {
-		return searchCH(key);
+		return searchCH(key, team);
 	}
 	// open addressing
 	else {
-		return searchOA(key);
+		return searchOA(key, team);
 	}
 }
 
@@ -128,7 +137,7 @@ void HashTable::insertCH(int index, Player* player) {
 }
 
 // open addressing search
-int HashTable::searchOA(string key) {
+int HashTable::searchOA(string key, string team) {
 	int index = hash(key);
 	//check if index is empty
 	if (players[index] == NULL) {
@@ -136,7 +145,8 @@ int HashTable::searchOA(string key) {
 		return 0;
 	}
 	//check if index contains same player
-	if (players[index]->key == key) {
+	if (players[index]->key == key && playedFor(players[index], team)) {
+		cout << "Found" << endl;
 		return 0;
 	}
 	//loop until NULL is enocuntered, if NULL is encountered, player doesn't exist
@@ -146,7 +156,8 @@ int HashTable::searchOA(string key) {
 		index++;
 		while (players[index] != NULL && index != i) {
 			count++;
-			if (players[index]->key == key) {
+			if (players[index]->key == key && playedFor(players[index], team)) {
+				cout << "Found" << endl;
 				return count;
 			}
 			index++;
@@ -160,7 +171,7 @@ int HashTable::searchOA(string key) {
 }
 
 // chaining search
-int HashTable::searchCH(string key) {
+int HashTable::searchCH(string key, string team) {
 	int index = hash(key); //get hash
 	// check if spot is used
 	if (players[index] == NULL) {
@@ -168,7 +179,8 @@ int HashTable::searchCH(string key) {
 		return 0;
 	}
 	// check if the spot is being taken by same player
-	else if (players[index]->key == key) {
+	else if (players[index]->key == key && playedFor(players[index], team)) {
+		cout << "Found" << endl;
 		return 0;
 	}
 	// otherwise loop through the linked list
@@ -182,7 +194,11 @@ int HashTable::searchCH(string key) {
 		if (temp == NULL || temp->key != key) {
 			cout << "Player not found" << endl;
 		}
+		else if (temp->key == key && playedFor(temp, team)){
+			cout << "Found" << endl;
+		}
 		else {
+			cout << "Player not found" << endl;
 		}
 		return count;
 	}
@@ -195,4 +211,14 @@ int HashTable::hash(string key) {
 		sum += key[i];
 	}
 	return sum % tableSize;
+}
+
+// check whether the player played for the team
+bool HashTable::playedFor(Player* player, string team) {
+	for (int i = 0; i < player->teams.size(); ++i) {
+		if (player->teams[i].teamID == team) {
+			return true;
+		}
+	}
+	return false;
 }
