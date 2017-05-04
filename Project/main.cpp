@@ -12,7 +12,6 @@
 #include <fstream>
 #include <sstream>
 #include "hashtable.h"
-#include "player.h"
 
 using namespace std;
 
@@ -22,7 +21,7 @@ void menu(); // display menu
 int main(int argc, char** argv) {
 
 	int hashSize = 5147;
-	if (argc == 2) {
+	if (argc == 2 && stoi(argv[1]) > hashSize) {
 		hashSize = stoi(argv[1]);
 	}
 
@@ -33,10 +32,8 @@ int main(int argc, char** argv) {
 	cout << "Hash table size: " << hashSize << endl;
 	cout << "Collisions using open addressing: " << hashOA.collisions << endl;
 	cout << "Search operations using open addressing: " << hashOA.operations << endl;
-	//cout << "Number of unique elements using open addressing: " << hashOA.uniqueValues << endl;
 	cout << "Collisions using chaining: " << hashCH.collisions << endl;
 	cout << "Search operations using chaining: " << hashCH.operations << endl;
-	//cout << "Number of unique elements using chaining: " << hashCH.uniqueValues << endl;
 
 	bool running = true;
 	while (running) {

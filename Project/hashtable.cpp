@@ -2,7 +2,7 @@
  ** Instructor: Rhonda Hoenigman
  ** TA: Yang Li
  ** Author: Aparajithan Venkateswaran
- ** 
+ **
  ** hashtable.cpp
  ** Contains implementation of class declared in "hashtable.h"
  */
@@ -72,6 +72,9 @@ void HashTable::insertOA(int index, Player* player) {
 		int i = index;
 		bool found = false;
 		index++;
+		if (index == tableSize) {
+			index = 0;
+		}
 		//check until NULL is encountered and wrap around
 		while (players[index] != NULL && index != i) {
 			operations++;
@@ -92,7 +95,6 @@ void HashTable::insertOA(int index, Player* player) {
 			collisions++;
 		}
 	}
-
 }
 
 // chaining
@@ -107,6 +109,7 @@ void HashTable::insertCH(int index, Player* player) {
 		// if the first item is same player, just add the team
 		if (player->id == temp->id) {
 			temp->teams.push_back(player->teams[0]);
+
 		}
 		else {
 			bool found = false;
@@ -146,7 +149,7 @@ int HashTable::searchOA(string key, string team) {
 	}
 	//check if index contains same player
 	if (players[index]->key == key && playedFor(players[index], team)) {
-		cout << "Found" << endl;
+		displayPlayer(players[index]);
 		return 0;
 	}
 	//loop until NULL is enocuntered, if NULL is encountered, player doesn't exist
@@ -157,7 +160,7 @@ int HashTable::searchOA(string key, string team) {
 		while (players[index] != NULL && index != i) {
 			count++;
 			if (players[index]->key == key && playedFor(players[index], team)) {
-				cout << "Found" << endl;
+				displayPlayer(players[index]);
 				return count;
 			}
 			index++;
@@ -180,7 +183,7 @@ int HashTable::searchCH(string key, string team) {
 	}
 	// check if the spot is being taken by same player
 	else if (players[index]->key == key && playedFor(players[index], team)) {
-		cout << "Found" << endl;
+		displayPlayer(players[index]);
 		return 0;
 	}
 	// otherwise loop through the linked list
@@ -190,23 +193,27 @@ int HashTable::searchCH(string key, string team) {
 		bool found = false;
 		while (temp != NULL) {
 			if (temp->key == key && playedFor(temp, team)) {
-				cout << "Found" << endl;
+				displayPlayer(temp);
 				found = true;
 				break;
 			}
+			temp = temp->next;
 			count++;
+		}
+		if (!found) {
+			cout << "Player not found." << endl;
 		}
 		return count;
 	}
 }
 
-// hash sum function
+// hashing function
 int HashTable::hash(string key) {
-	int sum = 0;
-	for (int i = 0; i < key.size(); ++i) {
-		sum += key[i];
+	unsigned int hash = 0, seed = 101;
+	for (int i = 0; i < key.length(); i++) {
+		hash = (hash * seed) + key[i];
 	}
-	return sum % tableSize;
+	return hash % tableSize;
 }
 
 // check whether the player played for the team
@@ -217,4 +224,31 @@ bool HashTable::playedFor(Player* player, string team) {
 		}
 	}
 	return false;
+}
+
+// print player information
+void HashTable::displayPlayer(Player* player) {
+	cout << "***" << endl;
+	cout << "Name: " << player->firstName << " " << player->lastName << endl;
+	cout << "Born: " << player->yearBorn << endl;
+	cout << "Country: " << player->country << endl;
+	cout << "Height: " << player->height << "    Weight: " << player->weight << endl;
+	if (player->batsRight) {
+		cout << "Bats: R";
+	}
+	else {
+		cout << "Bats: L";
+	}
+	if (player->throwsRight) {
+		cout << "    Throws: R" << endl;
+	}
+	else {
+		cout << "    Throws: L" << endl;
+	}
+	cout << "Played for: " << endl;
+	for (int i = 0; i < player->teams.size(); ++i) {
+		cout << "\tTeam: " << player->teams[i].teamID << " League: " << player->teams[i].leagueID << endl;
+		cout << "\tYear: " << player->teams[i].year << " Salary: $ " << player->teams[i].salary << endl;
+	}
+	cout << "***" << endl;
 }
