@@ -207,7 +207,8 @@ int HashTable::searchCH(string key, string team) {
 	}
 }
 
-// hashing function
+// hash function
+// adapted from http://stackoverflow.com/a/107657/5055644
 int HashTable::hash(string key) {
 	unsigned int hash = 0, seed = 101;
 	for (int i = 0; i < key.length(); i++) {

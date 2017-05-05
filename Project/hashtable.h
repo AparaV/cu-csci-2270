@@ -73,7 +73,7 @@ private:
 	void insertCH(int index, Player* player); // chaining
 	int searchOA(std::string key, std::string team); // open addressing
 	int searchCH(std::string key, std::string team); // chaining
-	int hash(std::string key); // hashing function
+	int hash(std::string key); // hash function
 	bool playedFor(Player* player, std::string team); // check whether the player played for this team
 	void displayPlayer(Player* player);
 	Player** players;

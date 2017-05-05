@@ -5,7 +5,7 @@
  **
  ** main.cpp
  ** Program starts from here
- ** Refer "hashtable.h" and "player.h" for declarations
+ ** Refer "hashtable.h" declarations
  */
 
 #include <iostream>
@@ -21,7 +21,7 @@ void menu(); // display menu
 int main(int argc, char** argv) {
 
 	int hashSize = 5147;
-	if (argc == 2 && stoi(argv[1]) > hashSize) {
+	if (argc == 2) {
 		hashSize = stoi(argv[1]);
 	}
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
 			running = false;
 		}
 	}
-	
+
 	return 0;
 }
 
